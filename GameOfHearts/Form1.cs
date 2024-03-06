@@ -11,5 +11,10 @@ namespace GameOfHearts
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            button2.Enabled = false;
+        }
     }
 }
