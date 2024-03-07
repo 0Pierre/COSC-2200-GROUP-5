@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace GameOfHearts
 {
     public partial class Form1 : Form
@@ -54,6 +56,33 @@ namespace GameOfHearts
                           "Date: [2024-03-06]\n\n" +
                           "This application is a C# implementation of the classic Hearts card game.\n" +
                           "Enjoy playing Hearts!\n", "About the Game", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void submitBtn_Click(object sender, EventArgs e)
+        {
+            string p1name = p1Input.Text;
+            string p2name = p2Input.Text;
+            string p3name = p3Input.Text;
+            string p4name = p4Input.Text;
+
+            if (!(string.IsNullOrEmpty(p1name)
+                  || string.IsNullOrEmpty(p2name)
+                  || string.IsNullOrEmpty(p3name)
+                  || string.IsNullOrEmpty(p4name)))
+            {
+                submitBtn.Enabled = true;
+            }
+            else
+            {
+                submitBtn.Enabled = false;
+            }
+
+
         }
     }
 }

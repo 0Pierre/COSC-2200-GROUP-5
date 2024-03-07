@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             checkBox1 = new CheckBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
             SuspendLayout();
@@ -56,9 +57,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1231, 653);
             Controls.Add(checkBox1);
+            Enabled = false;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MinimizeBox = false;
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form2";
+            Text = "GameOfHearts";
+            WindowState = FormWindowState.Maximized;
             Load += Form2_Load;
             ResumeLayout(false);
             PerformLayout();
