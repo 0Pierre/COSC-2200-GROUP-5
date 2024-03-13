@@ -7,6 +7,7 @@ namespace GameOfHearts
         public Form1()
         {
             InitializeComponent();
+            submitBtn.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -69,17 +70,31 @@ namespace GameOfHearts
             string p2name = p2Input.Text;
             string p3name = p3Input.Text;
             string p4name = p4Input.Text;
-
-            if (!(string.IsNullOrEmpty(p1name)
-                  || string.IsNullOrEmpty(p2name)
-                  || string.IsNullOrEmpty(p3name)
-                  || string.IsNullOrEmpty(p4name)))
+            
+            if (p1Input.Text.Length < 2)
             {
-                submitBtn.Enabled = true;
+                MessageBox.Show("Player 1 name should be at least 2 characters long");
             }
-            else
+            else if (p2Input.Text.Length < 2)
             {
-                submitBtn.Enabled = false;
+                MessageBox.Show("Player 2 name should be at least 2 characters long");
+            }
+            else if (p3Input.Text.Length < 2)
+            {
+                MessageBox.Show("Player 3 name should be at least 2 characters long");
+            }
+            else if (p4Input.Text.Length < 2)
+            {
+                MessageBox.Show("Player 4 name should be at least 2 characters long");
+            }
+
+            if (TextBoxScore.Text.Length < 0)
+            {
+                MessageBox.Show("Please enter a score");
+            }
+            else if (!int.TryParse(TextBoxScore.Text, out int score))
+            {
+                MessageBox.Show("The score must be of numeric value");
             }
 
 

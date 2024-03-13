@@ -39,11 +39,11 @@
             pictureBox5 = new PictureBox();
             pictureBox8 = new PictureBox();
             pictureBox7 = new PictureBox();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
-            pictureBox4 = new PictureBox();
+            playerName4 = new Label();
+            playerName3 = new Label();
+            playerName2 = new Label();
+            playerName1 = new Label();
+            pictureBo = new PictureBox();
             pictureBox3 = new PictureBox();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -52,7 +52,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -76,11 +76,11 @@
             gbMain.Controls.Add(pictureBox5);
             gbMain.Controls.Add(pictureBox8);
             gbMain.Controls.Add(pictureBox7);
-            gbMain.Controls.Add(label4);
-            gbMain.Controls.Add(label3);
-            gbMain.Controls.Add(label2);
-            gbMain.Controls.Add(label1);
-            gbMain.Controls.Add(pictureBox4);
+            gbMain.Controls.Add(playerName4);
+            gbMain.Controls.Add(playerName3);
+            gbMain.Controls.Add(playerName2);
+            gbMain.Controls.Add(playerName1);
+            gbMain.Controls.Add(pictureBo);
             gbMain.Controls.Add(pictureBox3);
             gbMain.Controls.Add(pictureBox2);
             gbMain.Controls.Add(pictureBox1);
@@ -170,52 +170,52 @@
             pictureBox7.TabIndex = 14;
             pictureBox7.TabStop = false;
             // 
-            // label4
+            // playerName4
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(43, 322);
-            label4.Name = "label4";
-            label4.Size = new Size(56, 21);
-            label4.TabIndex = 7;
-            label4.Text = "Name";
+            playerName4.AutoSize = true;
+            playerName4.Location = new Point(43, 322);
+            playerName4.Name = "playerName4";
+            playerName4.Size = new Size(71, 21);
+            playerName4.TabIndex = 7;
+            playerName4.Text = "Player 4";
             // 
-            // label3
+            // playerName3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(43, 226);
-            label3.Name = "label3";
-            label3.Size = new Size(56, 21);
-            label3.TabIndex = 6;
-            label3.Text = "Name";
+            playerName3.AutoSize = true;
+            playerName3.Location = new Point(43, 226);
+            playerName3.Name = "playerName3";
+            playerName3.Size = new Size(74, 21);
+            playerName3.TabIndex = 6;
+            playerName3.Text = "PLayer 3";
             // 
-            // label2
+            // playerName2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(43, 130);
-            label2.Name = "label2";
-            label2.Size = new Size(56, 21);
-            label2.TabIndex = 5;
-            label2.Text = "Name";
+            playerName2.AutoSize = true;
+            playerName2.Location = new Point(43, 130);
+            playerName2.Name = "playerName2";
+            playerName2.Size = new Size(71, 21);
+            playerName2.TabIndex = 5;
+            playerName2.Text = "Player 2";
             // 
-            // label1
+            // playerName1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(43, 32);
-            label1.Name = "label1";
-            label1.Size = new Size(56, 21);
-            label1.TabIndex = 4;
-            label1.Text = "Name";
+            playerName1.AutoSize = true;
+            playerName1.Location = new Point(43, 32);
+            playerName1.Name = "playerName1";
+            playerName1.Size = new Size(71, 21);
+            playerName1.TabIndex = 4;
+            playerName1.Text = "Player 1";
             // 
-            // pictureBox4
+            // pictureBo
             // 
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(36, 152);
-            pictureBox4.Margin = new Padding(3, 2, 3, 2);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(73, 68);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 3;
-            pictureBox4.TabStop = false;
+            pictureBo.Image = (Image)resources.GetObject("pictureBo.Image");
+            pictureBo.Location = new Point(36, 152);
+            pictureBo.Margin = new Padding(3, 2, 3, 2);
+            pictureBo.Name = "pictureBo";
+            pictureBo.Size = new Size(73, 68);
+            pictureBo.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBo.TabIndex = 3;
+            pictureBo.TabStop = false;
             // 
             // pictureBox3
             // 
@@ -282,7 +282,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBo).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -294,17 +294,17 @@
         private ContextMenuStrip contextMenuStrip1;
         private GroupBox gbMain;
         private PictureBox pictureBox1;
-        private PictureBox pictureBox4;
+        private PictureBox pictureBo;
         private PictureBox pictureBox3;
         private PictureBox pictureBox2;
         private Label label8;
         private Label label7;
         private Label label6;
         private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
+        private Label playerName4;
+        private Label playerName3;
+        private Label playerName2;
+        private Label playerName1;
         private PictureBox pictureBox5;
         private PictureBox pictureBox8;
         private PictureBox pictureBox7;
