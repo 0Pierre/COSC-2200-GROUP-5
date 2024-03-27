@@ -36,7 +36,7 @@
             rulesToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem2 = new ToolStripMenuItem();
             exitToolStripMenuItem = new ToolStripMenuItem();
-            submitBtn = new Button();
+            ButtonSubmit = new Button();
             label2 = new Label();
             label3 = new Label();
             label4 = new Label();
@@ -60,7 +60,7 @@
             label1.ImageAlign = ContentAlignment.TopCenter;
             label1.Location = new Point(227, 20);
             label1.Name = "label1";
-            label1.Padding = new Padding(4, 4, 4, 4);
+            label1.Padding = new Padding(4);
             label1.Size = new Size(228, 38);
             label1.TabIndex = 0;
             label1.Text = "Welcome to Hearts";
@@ -76,7 +76,7 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(5, 2, 0, 2);
-            menuStrip1.Size = new Size(749, 27);
+            menuStrip1.Size = new Size(717, 27);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -112,17 +112,16 @@
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
-            // submitBtn
+            // ButtonSubmit
             // 
-            submitBtn.Enabled = false;
-            submitBtn.Location = new Point(307, 289);
-            submitBtn.Margin = new Padding(3, 2, 3, 2);
-            submitBtn.Name = "submitBtn";
-            submitBtn.Size = new Size(82, 22);
-            submitBtn.TabIndex = 3;
-            submitBtn.Text = "Submit";
-            submitBtn.UseVisualStyleBackColor = true;
-            submitBtn.Click += submitBtn_Click;
+            ButtonSubmit.Location = new Point(307, 289);
+            ButtonSubmit.Margin = new Padding(3, 2, 3, 2);
+            ButtonSubmit.Name = "ButtonSubmit";
+            ButtonSubmit.Size = new Size(82, 22);
+            ButtonSubmit.TabIndex = 3;
+            ButtonSubmit.Text = "Submit";
+            ButtonSubmit.UseVisualStyleBackColor = true;
+            ButtonSubmit.Click += submitBtn_Click;
             // 
             // label2
             // 
@@ -233,7 +232,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(749, 413);
+            ClientSize = new Size(717, 401);
             Controls.Add(TextBoxScore);
             Controls.Add(label6);
             Controls.Add(p4Input);
@@ -244,7 +243,7 @@
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
-            Controls.Add(submitBtn);
+            Controls.Add(ButtonSubmit);
             Controls.Add(menuStrip1);
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -269,7 +268,7 @@
         private ToolStripMenuItem aboutToolStripMenuItem1;
         private ToolStripMenuItem rulesToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem2;
-        private Button submitBtn;
+        private Button ButtonSubmit;
         private Label label2;
         private Label label3;
         private Label label4;

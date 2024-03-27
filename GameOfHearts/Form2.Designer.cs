@@ -99,9 +99,9 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.BackColor = Color.Maroon;
+            label8.BackColor = Color.FromArgb(215, 68, 62);
             label8.ForeColor = Color.Transparent;
-            label8.Location = new Point(127, 370);
+            label8.Location = new Point(128, 369);
             label8.Name = "label8";
             label8.Size = new Size(19, 21);
             label8.TabIndex = 11;
@@ -110,8 +110,10 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.BackColor = Color.Maroon;
-            label5.Location = new Point(127, 77);
+            label5.BackColor = Color.FromArgb(215, 68, 62);
+            label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.ForeColor = Color.Transparent;
+            label5.Location = new Point(128, 77);
             label5.Name = "label5";
             label5.Size = new Size(19, 21);
             label5.TabIndex = 8;
@@ -120,8 +122,8 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.BackColor = Color.Maroon;
-            label7.Location = new Point(127, 275);
+            label7.BackColor = Color.FromArgb(215, 68, 62);
+            label7.Location = new Point(128, 273);
             label7.Name = "label7";
             label7.Size = new Size(19, 21);
             label7.TabIndex = 10;
@@ -130,8 +132,8 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.BackColor = Color.Maroon;
-            label6.Location = new Point(127, 176);
+            label6.BackColor = Color.FromArgb(215, 68, 62);
+            label6.Location = new Point(129, 176);
             label6.Name = "label6";
             label6.Size = new Size(19, 21);
             label6.TabIndex = 9;

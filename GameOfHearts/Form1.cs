@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 
 namespace GameOfHearts
 {
@@ -7,7 +8,6 @@ namespace GameOfHearts
         public Form1()
         {
             InitializeComponent();
-            submitBtn.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -66,36 +66,72 @@ namespace GameOfHearts
 
         private void submitBtn_Click(object sender, EventArgs e)
         {
+            // Declare variables 
             string p1name = p1Input.Text;
             string p2name = p2Input.Text;
             string p3name = p3Input.Text;
             string p4name = p4Input.Text;
-            
+
+            // Validation for player names and player score box
+
+            if (!IsAlphabetic(p1Input.Text))
+            {
+                MessageBox.Show("Player 1 name should contain only alphabetical characters.");
+                p1Input.Clear();
+
+            }
             if (p1Input.Text.Length < 2)
             {
                 MessageBox.Show("Player 1 name should be at least 2 characters long");
+                p1Input.Clear();
+            }
+            else if (!IsAlphabetic(p2Input.Text))
+            {
+                MessageBox.Show("Player 2 name should contain only alphabetical characters.");
+                p2Input.Clear();
             }
             else if (p2Input.Text.Length < 2)
             {
                 MessageBox.Show("Player 2 name should be at least 2 characters long");
+                p2Input.Clear();
+            }
+            else if (!IsAlphabetic(p3Input.Text))
+            {
+                MessageBox.Show("Player 3 name should contain only alphabetical characters.");
+                p3Input.Clear();
             }
             else if (p3Input.Text.Length < 2)
             {
                 MessageBox.Show("Player 3 name should be at least 2 characters long");
+                p3Input.Clear();
+            }
+            else if (!IsAlphabetic(p4Input.Text))
+            {
+                MessageBox.Show("Player 4 name should contain only alphabetical characters.");
+                p4Input.Clear();
             }
             else if (p4Input.Text.Length < 2)
             {
                 MessageBox.Show("Player 4 name should be at least 2 characters long");
+                p4Input.Clear();
             }
-
-            if (TextBoxScore.Text.Length < 0)
+            // Validation for score
+            else if (string.IsNullOrEmpty(TextBoxScore.Text))
             {
                 MessageBox.Show("Please enter a score");
             }
             else if (!int.TryParse(TextBoxScore.Text, out int score))
             {
-                MessageBox.Show("The score must be of numeric value");
+                MessageBox.Show("The score must be a numeric value");
+                TextBoxScore.Clear();
             }
+
+            // Function to check if an input is alphabetic
+            bool IsAlphabetic(string input)
+            {
+                return Regex.IsMatch(input, @"^[a-zA-Z]+$");
+            }
+
 
 
         }
