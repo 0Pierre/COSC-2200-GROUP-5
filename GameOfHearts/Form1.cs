@@ -10,17 +10,13 @@ namespace GameOfHearts
         public Player player3;
         public Player player4;
 
+
         public Form1()
         {
             InitializeComponent();
-
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            Form2 f2 = new Form2();
-            f2.Show();
-        }
+  
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -151,7 +147,9 @@ namespace GameOfHearts
             if (p1Valid && p2Valid && p3Valid && p4Valid && scoreValid)
             {
                 // Assuming score is valid, otherwise handle this case separately
-                int playerScore = int.Parse(TextBoxScore.Text);
+                int Score = int.Parse(TextBoxScore.Text);
+
+                int playerScore = 0;
 
                 // Create Player objects
                 player1 = new Player(p1name, playerScore);
@@ -159,6 +157,10 @@ namespace GameOfHearts
                 player3 = new Player(p3name, playerScore);
                 player4 = new Player(p4name, playerScore);
 
+                // Pass references to all player objects to Form2 constructor
+                Form2 f2 = new Form2(this, player1, player2, player3, player4);
+                f2.Show();
+                
                 // Now you can use these Player objects as needed
                 // For example, add them to a list or do some other operations
             }

@@ -254,7 +254,6 @@
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GameOfHearts";
-            Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);

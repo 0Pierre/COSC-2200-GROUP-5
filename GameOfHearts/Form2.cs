@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace GameOfHearts
+﻿namespace GameOfHearts
 {
     public partial class Form2 : Form
     {
-        public Form2()
+        private Form1 f1;
+
+        // Constructor modified to accept references to all player objects
+        public Form2(Form1 parentForm, Player player1, Player player2, Player player3, Player player4)
         {
             InitializeComponent();
+            f1 = parentForm;
 
-            Form1 f1 = new Form1();
+            // Now you can access all player objects if needed
+            // For demonstration purpose, let's just display the name of player1
+            playerName1.Text = player1.Name;
+            playerName2.Text = player2.Name;
+            playerName3.Text = player3.Name;
+            playerName4.Text = player4.Name;
 
-            playerName1.Text = f1.player1.Name;
-            playerName2.Text = f1.player1.Name;
-            playerName3.Text = f1.player1.Name;
-            playerName4.Text = f1.player1.Name;
-
-
+            
+            f1.Hide();
         }
-
-     
     }
 }
