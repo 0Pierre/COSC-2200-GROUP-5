@@ -17,8 +17,19 @@
             playerName3.Text = player3.Name;
             playerName4.Text = player4.Name;
 
-            
             f1.Hide();
+
+            // Assuming you have a PictureBox control named pictureBoxCard in your Windows Form
+
+            // Create a new instance of a card representing the Ace of Spades
+            Card aceOfSpades = new Card(Suit.Spades, Rank.Ace, "path/to/ace_of_spades_image.png");
+
+            // Get the image associated with the card
+            Image cardImage = aceOfSpades.GetCardImage();
+
+            // Display the image on the PictureBox control
+            pictureBoxCard1.Image = cardImage;
+
         }
     }
 }

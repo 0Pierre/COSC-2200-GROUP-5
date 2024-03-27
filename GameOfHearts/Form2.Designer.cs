@@ -87,11 +87,9 @@
             gbMain.Controls.Add(pictureBox6);
             gbMain.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             gbMain.ForeColor = SystemColors.Control;
-            gbMain.Location = new Point(10, 194);
-            gbMain.Margin = new Padding(3, 2, 3, 2);
+            gbMain.Location = new Point(11, 259);
             gbMain.Name = "gbMain";
-            gbMain.Padding = new Padding(3, 2, 3, 2);
-            gbMain.Size = new Size(203, 456);
+            gbMain.Size = new Size(232, 608);
             gbMain.TabIndex = 1;
             gbMain.TabStop = false;
             gbMain.Text = "Score";
@@ -101,9 +99,9 @@
             label8.AutoSize = true;
             label8.BackColor = Color.FromArgb(215, 68, 62);
             label8.ForeColor = Color.Transparent;
-            label8.Location = new Point(128, 369);
+            label8.Location = new Point(146, 492);
             label8.Name = "label8";
-            label8.Size = new Size(19, 21);
+            label8.Size = new Size(24, 28);
             label8.TabIndex = 11;
             label8.Text = "0";
             // 
@@ -113,9 +111,9 @@
             label5.BackColor = Color.FromArgb(215, 68, 62);
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label5.ForeColor = Color.Transparent;
-            label5.Location = new Point(128, 77);
+            label5.Location = new Point(146, 103);
             label5.Name = "label5";
-            label5.Size = new Size(19, 21);
+            label5.Size = new Size(24, 28);
             label5.TabIndex = 8;
             label5.Text = "0";
             // 
@@ -123,9 +121,9 @@
             // 
             label7.AutoSize = true;
             label7.BackColor = Color.FromArgb(215, 68, 62);
-            label7.Location = new Point(128, 273);
+            label7.Location = new Point(146, 364);
             label7.Name = "label7";
-            label7.Size = new Size(19, 21);
+            label7.Size = new Size(24, 28);
             label7.TabIndex = 10;
             label7.Text = "0";
             // 
@@ -133,19 +131,18 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = Color.FromArgb(215, 68, 62);
-            label6.Location = new Point(129, 176);
+            label6.Location = new Point(147, 235);
             label6.Name = "label6";
-            label6.Size = new Size(19, 21);
+            label6.Size = new Size(24, 28);
             label6.TabIndex = 9;
             label6.Text = "0";
             // 
             // pictureBox5
             // 
             pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
-            pictureBox5.Location = new Point(114, 68);
-            pictureBox5.Margin = new Padding(3, 2, 3, 2);
+            pictureBox5.Location = new Point(130, 91);
             pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(47, 40);
+            pictureBox5.Size = new Size(54, 53);
             pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox5.TabIndex = 12;
             pictureBox5.TabStop = false;
@@ -153,10 +150,9 @@
             // pictureBox8
             // 
             pictureBox8.Image = (Image)resources.GetObject("pictureBox8.Image");
-            pictureBox8.Location = new Point(114, 168);
-            pictureBox8.Margin = new Padding(3, 2, 3, 2);
+            pictureBox8.Location = new Point(130, 224);
             pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(47, 40);
+            pictureBox8.Size = new Size(54, 53);
             pictureBox8.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox8.TabIndex = 15;
             pictureBox8.TabStop = false;
@@ -164,10 +160,9 @@
             // pictureBox7
             // 
             pictureBox7.Image = (Image)resources.GetObject("pictureBox7.Image");
-            pictureBox7.Location = new Point(114, 264);
-            pictureBox7.Margin = new Padding(3, 2, 3, 2);
+            pictureBox7.Location = new Point(130, 352);
             pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(47, 40);
+            pictureBox7.Size = new Size(54, 53);
             pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox7.TabIndex = 14;
             pictureBox7.TabStop = false;
@@ -175,46 +170,45 @@
             // playerName4
             // 
             playerName4.AutoSize = true;
-            playerName4.Location = new Point(43, 322);
+            playerName4.Location = new Point(49, 429);
             playerName4.Name = "playerName4";
-            playerName4.Size = new Size(71, 21);
+            playerName4.Size = new Size(89, 28);
             playerName4.TabIndex = 7;
             playerName4.Text = "Player 4";
             // 
             // playerName3
             // 
             playerName3.AutoSize = true;
-            playerName3.Location = new Point(43, 226);
+            playerName3.Location = new Point(49, 301);
             playerName3.Name = "playerName3";
-            playerName3.Size = new Size(74, 21);
+            playerName3.Size = new Size(93, 28);
             playerName3.TabIndex = 6;
             playerName3.Text = "PLayer 3";
             // 
             // playerName2
             // 
             playerName2.AutoSize = true;
-            playerName2.Location = new Point(43, 130);
+            playerName2.Location = new Point(49, 173);
             playerName2.Name = "playerName2";
-            playerName2.Size = new Size(71, 21);
+            playerName2.Size = new Size(89, 28);
             playerName2.TabIndex = 5;
             playerName2.Text = "Player 2";
             // 
             // playerName1
             // 
             playerName1.AutoSize = true;
-            playerName1.Location = new Point(43, 32);
+            playerName1.Location = new Point(49, 43);
             playerName1.Name = "playerName1";
-            playerName1.Size = new Size(71, 21);
+            playerName1.Size = new Size(89, 28);
             playerName1.TabIndex = 4;
             playerName1.Text = "Player 1";
             // 
             // pictureBo
             // 
             pictureBo.Image = (Image)resources.GetObject("pictureBo.Image");
-            pictureBo.Location = new Point(36, 152);
-            pictureBo.Margin = new Padding(3, 2, 3, 2);
+            pictureBo.Location = new Point(41, 203);
             pictureBo.Name = "pictureBo";
-            pictureBo.Size = new Size(73, 68);
+            pictureBo.Size = new Size(83, 91);
             pictureBo.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBo.TabIndex = 3;
             pictureBo.TabStop = false;
@@ -222,10 +216,9 @@
             // pictureBox3
             // 
             pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(36, 248);
-            pictureBox3.Margin = new Padding(3, 2, 3, 2);
+            pictureBox3.Location = new Point(41, 331);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(73, 68);
+            pictureBox3.Size = new Size(83, 91);
             pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox3.TabIndex = 2;
             pictureBox3.TabStop = false;
@@ -233,10 +226,9 @@
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(36, 344);
-            pictureBox2.Margin = new Padding(3, 2, 3, 2);
+            pictureBox2.Location = new Point(41, 459);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(73, 68);
+            pictureBox2.Size = new Size(83, 91);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
@@ -244,10 +236,9 @@
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(36, 52);
-            pictureBox1.Margin = new Padding(3, 2, 3, 2);
+            pictureBox1.Location = new Point(41, 69);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(73, 68);
+            pictureBox1.Size = new Size(83, 91);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -255,29 +246,27 @@
             // pictureBox6
             // 
             pictureBox6.Image = (Image)resources.GetObject("pictureBox6.Image");
-            pictureBox6.Location = new Point(114, 360);
-            pictureBox6.Margin = new Padding(3, 2, 3, 2);
+            pictureBox6.Location = new Point(130, 480);
             pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(47, 40);
+            pictureBox6.Size = new Size(54, 53);
             pictureBox6.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox6.TabIndex = 13;
             pictureBox6.TabStop = false;
             // 
             // Form2
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1540, 845);
+            ClientSize = new Size(1760, 1055);
             Controls.Add(gbMain);
             Enabled = false;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Margin = new Padding(3, 2, 3, 2);
             MinimizeBox = false;
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GameOfHearts";
-            WindowState = FormWindowState.Maximized;            
+            WindowState = FormWindowState.Maximized;
             gbMain.ResumeLayout(false);
             gbMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
