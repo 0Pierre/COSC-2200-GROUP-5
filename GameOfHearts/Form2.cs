@@ -15,12 +15,17 @@ namespace GameOfHearts
         public Form2()
         {
             InitializeComponent();
+
+            Form1 f1 = new Form1();
+
+            playerName1.Text = f1.player1.Name;
+            playerName2.Text = f1.player1.Name;
+            playerName3.Text = f1.player1.Name;
+            playerName4.Text = f1.player1.Name;
+
+
         }
 
-        private void Form2_Load(object sender, EventArgs e)
-        {
-            Form1 f1 = new Form1();
-            f1.Close();
-        }
+     
     }
 }

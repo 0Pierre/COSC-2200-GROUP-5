@@ -277,8 +277,7 @@
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GameOfHearts";
-            WindowState = FormWindowState.Maximized;
-            Load += Form2_Load;
+            WindowState = FormWindowState.Maximized;            
             gbMain.ResumeLayout(false);
             gbMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();

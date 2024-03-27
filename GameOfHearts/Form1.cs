@@ -5,9 +5,15 @@ namespace GameOfHearts
 {
     public partial class Form1 : Form
     {
+        public Player player1;
+        public Player player2;
+        public Player player3;
+        public Player player4;
+
         public Form1()
         {
             InitializeComponent();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -72,68 +78,96 @@ namespace GameOfHearts
             string p3name = p3Input.Text;
             string p4name = p4Input.Text;
 
-            // Validation for player names and player score box
+            // Validation flags
+            bool p1Valid = true, p2Valid = true, p3Valid = true, p4Valid = true, scoreValid = true;
 
-            if (!IsAlphabetic(p1Input.Text))
+            // Validation for player names
+            if (!IsAlphabetic(p1name))
             {
                 MessageBox.Show("Player 1 name should contain only alphabetical characters.");
                 p1Input.Clear();
-
+                p1Valid = false;
             }
-            if (p1Input.Text.Length < 2)
+            else if (p1name.Length < 2)
             {
                 MessageBox.Show("Player 1 name should be at least 2 characters long");
                 p1Input.Clear();
+                p1Valid = false;
             }
-            else if (!IsAlphabetic(p2Input.Text))
+
+            if (!IsAlphabetic(p2name))
             {
                 MessageBox.Show("Player 2 name should contain only alphabetical characters.");
                 p2Input.Clear();
+                p2Valid = false;
             }
-            else if (p2Input.Text.Length < 2)
+            else if (p2name.Length < 2)
             {
                 MessageBox.Show("Player 2 name should be at least 2 characters long");
                 p2Input.Clear();
+                p2Valid = false;
             }
-            else if (!IsAlphabetic(p3Input.Text))
+
+            if (!IsAlphabetic(p3name))
             {
                 MessageBox.Show("Player 3 name should contain only alphabetical characters.");
                 p3Input.Clear();
+                p3Valid = false;
             }
-            else if (p3Input.Text.Length < 2)
+            else if (p3name.Length < 2)
             {
                 MessageBox.Show("Player 3 name should be at least 2 characters long");
                 p3Input.Clear();
+                p3Valid = false;
             }
-            else if (!IsAlphabetic(p4Input.Text))
+
+            if (!IsAlphabetic(p4name))
             {
                 MessageBox.Show("Player 4 name should contain only alphabetical characters.");
                 p4Input.Clear();
+                p4Valid = false;
             }
-            else if (p4Input.Text.Length < 2)
+            else if (p4name.Length < 2)
             {
                 MessageBox.Show("Player 4 name should be at least 2 characters long");
                 p4Input.Clear();
+                p4Valid = false;
             }
+
             // Validation for score
-            else if (string.IsNullOrEmpty(TextBoxScore.Text))
+            if (string.IsNullOrEmpty(TextBoxScore.Text))
             {
                 MessageBox.Show("Please enter a score");
+                scoreValid = false;
             }
             else if (!int.TryParse(TextBoxScore.Text, out int score))
             {
                 MessageBox.Show("The score must be a numeric value");
                 TextBoxScore.Clear();
+                scoreValid = false;
             }
 
-            // Function to check if an input is alphabetic
-            bool IsAlphabetic(string input)
+            // If all validations pass, create the Player object
+            if (p1Valid && p2Valid && p3Valid && p4Valid && scoreValid)
             {
-                return Regex.IsMatch(input, @"^[a-zA-Z]+$");
+                // Assuming score is valid, otherwise handle this case separately
+                int playerScore = int.Parse(TextBoxScore.Text);
+
+                // Create Player objects
+                player1 = new Player(p1name, playerScore);
+                player2 = new Player(p2name, playerScore);
+                player3 = new Player(p3name, playerScore);
+                player4 = new Player(p4name, playerScore);
+
+                // Now you can use these Player objects as needed
+                // For example, add them to a list or do some other operations
             }
+        }
 
-
-
+        // Function to check if an input is alphabetic
+        bool IsAlphabetic(string input)
+        {
+            return Regex.IsMatch(input, @"^[a-zA-Z]+$");
         }
     }
 }
