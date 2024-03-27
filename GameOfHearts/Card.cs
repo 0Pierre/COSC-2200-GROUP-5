@@ -29,7 +29,7 @@
             ImagePath = imagePath;
         }
 
-    public Image GetCardImage()
+    public Image GetCardImage(string ImagePath)
     {
         // Load the image from the file path
         Image image = Image.FromFile(ImagePath);
