@@ -1,11 +1,13 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Drawing; // Required for Image class
+using System.Windows.Forms;
 
 namespace GameOfHearts
 {
     public partial class Form2 : Form
     {
         private Form1 f1;
-        private PictureBox[] pictureBox; // Renamed to pictureBoxes
+        private PictureBox[] pictureBox;
 
         public Form2(Form1 parentForm, Player player1, Player player2, Player player3, Player player4)
         {
@@ -23,26 +25,25 @@ namespace GameOfHearts
 
             // Initialize pictureBoxes array with appropriate size
             pictureBox = new PictureBox[52];
-            // Initialize each PictureBox in the array
-            for (int i = 9; i < pictureBox.Length; i++)
-            {
-             
-                // Construct the file name based on the card index
-                string fileName = $"C:/Users/Moham/OneDrive/Desktop/OOP3/COSC-2200-GROUP-5/GameOfHearts/images/{i-8}_of_clubs.png"; // Update "suit" accordingly
 
-                // Create a new instance of a card
-                Card card = new Card(GetSuit(i), GetRank(i), fileName);
+            // Loop through each card index
 
-                // Get the image associated with the card
-                Image cardImage = card.GetCardImage(fileName);
-
-                // Display the image on the PictureBox control
-                pictureBox[i].Image = cardImage; // Adjust the index accordingly
-                                                   // Add the PictureBox control to the form's controls collection
-                
-            }
+            
         }
 
+        private void setImage()
+        {
+            try
+            {
+                string imagePath = @"./Images/2_of_clubs.png";
+
+                pictureBox1.Image = Image.FromFile(imagePath);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
         private Rank GetRank(int index)
         {
             int rankValue = index % 13 + 2; // Adjust for zero-based index
@@ -61,6 +62,27 @@ namespace GameOfHearts
                 return Suit.Spades;
             else
                 throw new ArgumentException("Invalid card index");
+        }
+
+        private void TestLoop()
+        {
+            for (int i = 0; i < pictureBox.Length; i++)
+            {
+                // Create a new Card instance for each card
+                Suit suit = GetSuit(i);
+                Rank rank = GetRank(i);
+                string imagePath = $".\\images\\{rank}_of_{suit}.png"; // Assuming images are stored locally
+                Card card = new Card(suit, rank, imagePath);
+
+                // Create PictureBox for each card
+                pictureBox[i] = new PictureBox();
+
+                // Load the image from the Card instance and assign it to PictureBox
+                pictureBox[i].Image = card.GetCardImage();
+
+
+
+            }
         }
     }
 }
