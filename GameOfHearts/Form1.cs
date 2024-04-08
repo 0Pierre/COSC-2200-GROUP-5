@@ -16,7 +16,7 @@ namespace GameOfHearts
             InitializeComponent();
         }
 
-  
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -160,7 +160,7 @@ namespace GameOfHearts
                 // Pass references to all player objects to Form2 constructor
                 Form2 f2 = new Form2(this, player1, player2, player3, player4);
                 f2.Show();
-                
+
                 // Now you can use these Player objects as needed
                 // For example, add them to a list or do some other operations
             }
@@ -170,6 +170,16 @@ namespace GameOfHearts
         bool IsAlphabetic(string input)
         {
             return Regex.IsMatch(input, @"^[a-zA-Z]+$");
+        }
+
+        private void ButtonAddPlayer_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("You cannot add a player at this time", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void ButtonDeletePlayer_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("You can not delete a player at this time", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

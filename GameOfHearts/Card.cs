@@ -3,16 +3,16 @@ using System.Drawing;
 
 public enum Suit
 {
-    Hearts,
-    Diamonds,
-    Clubs,
-    Spades
+    hearts,
+    diamonds,
+    clubs,
+    spades
 }
 
 public enum Rank
 {
-    Ace = 0, Two = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten,
-    Jack, Queen, King
+    ace, two=2, three=3, four=4, five=5, six=6,seven= 7,eight= 8,nine=  9,ten= 10,
+    jack, queen, king
 }
 
 public class Card
