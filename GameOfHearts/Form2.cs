@@ -45,7 +45,9 @@ namespace GameOfHearts
 
             // Initialize players array
             players = new Player[4];
+            // Set humanPlayer at index 0
             players[0] = humanPlayer;
+            // Copy the aiPlayers list into players list starting at index 1 
             Array.Copy(aiPlayers, 0, players, 1, 3);
 
             playerName1.Text = humanPlayer.Name;
@@ -71,7 +73,7 @@ namespace GameOfHearts
                 Card card = new Card(suit, rank, imagePath);
 
                 // Add the card to each player's hand
-                
+
                 // Create Button for each card
                 buttons[index] = new Button();
 
@@ -112,7 +114,8 @@ namespace GameOfHearts
                 buttons[i].Click += Button_Click;
             }
 
-
+            // Deal cards to players
+            DealCards();
             // Start the game with the human player
             currentPlayerIndex = 0;
             trickStarter = 0;
@@ -205,7 +208,7 @@ namespace GameOfHearts
             currentTrick.Add(selectedCard);
 
             // Update the UI to hide the selected card button
-            UpdateUI(selectedCard);
+            UpdateUI(selectedCard, false);
 
             // Check if the trick is complete
             if (currentTrick.Count == 4)
@@ -260,7 +263,6 @@ namespace GameOfHearts
 
 
 
-
         private bool IsValidMove(Player player, Card card)
         {
             // Check if the player is following suit
@@ -300,6 +302,12 @@ namespace GameOfHearts
 
             // Set the next trick starter
             trickStarter = winnerIndex;
+
+            // Move picked cards to the side for each player
+            foreach (var player in players)
+            {
+                MovePickedCardsToSide(player);
+            }
         }
 
         private int FindTrickWinner()
@@ -418,7 +426,7 @@ namespace GameOfHearts
 
         private Rank GetRank(int index)
         {
-            int rankValue = index % 13 + 2; // Adjust for zero-based index and start at 2
+            int rankValue = index % 13 + 2;
             switch (rankValue)
             {
                 case 11:
@@ -492,13 +500,12 @@ namespace GameOfHearts
             // Deal cards to players
             for (int i = 0; i < 52; i++)
             {
-                players[i % 4].Hand.Add(deck[i]);
+                players[i % 4].AddCardToHand(deck[i]);
             }
         }
 
 
-
-        private void UpdateUI(Card selectedCard)
+        private void UpdateUI(Card selectedCard, bool isHumanPlayer)
         {
             // Iterate through the buttonCardMap to find the button associated with the selected card
             foreach (var pair in buttonCardMap)
@@ -506,10 +513,41 @@ namespace GameOfHearts
                 if (pair.Value == selectedCard)
                 {
                     // Hide the button associated with the selected card
-                    pair.Key.Location = new Point(1550, 328);
+                    pair.Key.Visible = false;
+
+                    // Move the selected card to the side
+                    if (isHumanPlayer)
+                    {
+                        pair.Key.Location = new Point(1550, 328); // Human player's cards
+                    }
+                    else
+                    {
+                        pair.Key.Location = new Point(50, 50); // AI player's cards (adjust the position as needed)
+                    }
+
                     // No need to continue iterating once the button is found
                     break;
                 }
+            }
+        }
+
+        private void MovePickedCardsToSide(Player player)
+        {
+            int offset = 0;
+            foreach (var card in player.WonCards)
+            {
+                Button button = new Button();
+                button.Size = new Size(ButtonWidth, ButtonHeight);
+                button.Location = new Point(1550 + offset, 328); // Adjust the position as needed
+                button.BackgroundImage = card.GetCardImage();
+                button.BackgroundImageLayout = ImageLayout.Zoom;
+                button.Text = "";
+                button.FlatStyle = FlatStyle.Flat;
+                button.FlatAppearance.BorderSize = 0;
+                button.ImageAlign = ContentAlignment.MiddleCenter;
+                button.Enabled = false;
+                this.Controls.Add(button);
+                offset += ButtonWidth + SpacingX;
             }
         }
 
