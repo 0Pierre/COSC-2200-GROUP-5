@@ -51,13 +51,13 @@
             // 
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Lucida Sans Unicode", 16.2F, FontStyle.Italic, GraphicsUnit.Point);
+            label1.Font = new Font("Century Gothic", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
             label1.ForeColor = SystemColors.Control;
             label1.ImageAlign = ContentAlignment.TopCenter;
-            label1.Location = new Point(246, 35);
+            label1.Location = new Point(271, 35);
             label1.Name = "label1";
             label1.Padding = new Padding(5);
-            label1.Size = new Size(278, 44);
+            label1.Size = new Size(236, 39);
             label1.TabIndex = 0;
             label1.Text = "Welcome to Hearts";
             label1.TextAlign = ContentAlignment.TopCenter;
@@ -71,46 +71,46 @@
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(6, 3, 0, 3);
-            menuStrip1.Size = new Size(780, 35);
+            menuStrip1.Size = new Size(780, 29);
             menuStrip1.TabIndex = 2;
             menuStrip1.Text = "menuStrip1";
             // 
             // aboutToolStripMenuItem1
             // 
             aboutToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { rulesToolStripMenuItem, aboutToolStripMenuItem2 });
-            aboutToolStripMenuItem1.Font = new Font("Comic Sans MS", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            aboutToolStripMenuItem1.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             aboutToolStripMenuItem1.ForeColor = Color.White;
             aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            aboutToolStripMenuItem1.Size = new Size(63, 29);
+            aboutToolStripMenuItem1.Size = new Size(61, 23);
             aboutToolStripMenuItem1.Text = "Help";
             // 
             // rulesToolStripMenuItem
             // 
             rulesToolStripMenuItem.Name = "rulesToolStripMenuItem";
-            rulesToolStripMenuItem.Size = new Size(146, 30);
+            rulesToolStripMenuItem.Size = new Size(224, 26);
             rulesToolStripMenuItem.Text = "Rules";
             rulesToolStripMenuItem.Click += rulesToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem2
             // 
             aboutToolStripMenuItem2.Name = "aboutToolStripMenuItem2";
-            aboutToolStripMenuItem2.Size = new Size(146, 30);
+            aboutToolStripMenuItem2.Size = new Size(224, 26);
             aboutToolStripMenuItem2.Text = "About";
             aboutToolStripMenuItem2.Click += aboutToolStripMenuItem2_Click;
             // 
             // exitToolStripMenuItem
             // 
-            exitToolStripMenuItem.Font = new Font("Comic Sans MS", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            exitToolStripMenuItem.Font = new Font("Century Gothic", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
             exitToolStripMenuItem.ForeColor = Color.White;
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(60, 29);
+            exitToolStripMenuItem.Size = new Size(50, 23);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // ButtonSubmit
             // 
-            ButtonSubmit.Font = new Font("Lucida Sans Unicode", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            ButtonSubmit.Location = new Point(589, 391);
+            ButtonSubmit.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            ButtonSubmit.Location = new Point(594, 391);
             ButtonSubmit.Name = "ButtonSubmit";
             ButtonSubmit.Size = new Size(94, 29);
             ButtonSubmit.TabIndex = 3;
@@ -122,20 +122,20 @@
             // 
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Lucida Sans Unicode", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ForeColor = SystemColors.Control;
-            label2.Location = new Point(42, 146);
+            label2.Location = new Point(47, 146);
             label2.Name = "label2";
-            label2.Size = new Size(118, 21);
+            label2.Size = new Size(108, 21);
             label2.TabIndex = 4;
             label2.Text = "Your Name:";
             // 
             // p1Input
             // 
-            p1Input.Font = new Font("Lucida Sans Unicode", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            p1Input.Location = new Point(42, 182);
+            p1Input.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            p1Input.Location = new Point(47, 182);
             p1Input.Name = "p1Input";
-            p1Input.Size = new Size(125, 34);
+            p1Input.Size = new Size(125, 28);
             p1Input.TabIndex = 8;
             toolTip1.SetToolTip(p1Input, "Please enter a Player name no longer than 12 Characters and is alphabetic ");
             // 
@@ -143,26 +143,26 @@
             // 
             label6.AutoSize = true;
             label6.BackColor = Color.Transparent;
-            label6.Font = new Font("Lucida Sans Unicode", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
             label6.ForeColor = Color.White;
-            label6.Location = new Point(598, 146);
+            label6.Location = new Point(619, 146);
             label6.Name = "label6";
-            label6.Size = new Size(141, 21);
+            label6.Size = new Size(130, 21);
             label6.TabIndex = 12;
             label6.Text = "Choose Score:";
             // 
             // TextBoxScore
             // 
-            TextBoxScore.Font = new Font("Lucida Sans Unicode", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            TextBoxScore.Location = new Point(614, 182);
+            TextBoxScore.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            TextBoxScore.Location = new Point(619, 182);
             TextBoxScore.Name = "TextBoxScore";
-            TextBoxScore.Size = new Size(125, 34);
+            TextBoxScore.Size = new Size(125, 28);
             TextBoxScore.TabIndex = 13;
             // 
             // ButtonAddPlayer
             // 
-            ButtonAddPlayer.Font = new Font("Lucida Sans Unicode", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            ButtonAddPlayer.Location = new Point(109, 391);
+            ButtonAddPlayer.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            ButtonAddPlayer.Location = new Point(114, 391);
             ButtonAddPlayer.Name = "ButtonAddPlayer";
             ButtonAddPlayer.Size = new Size(111, 30);
             ButtonAddPlayer.TabIndex = 14;
@@ -173,8 +173,8 @@
             // 
             // ButtonDeletePlayer
             // 
-            ButtonDeletePlayer.Font = new Font("Lucida Sans Unicode", 10.2F, FontStyle.Bold, GraphicsUnit.Point);
-            ButtonDeletePlayer.Location = new Point(338, 392);
+            ButtonDeletePlayer.Font = new Font("Century Gothic", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            ButtonDeletePlayer.Location = new Point(343, 392);
             ButtonDeletePlayer.Name = "ButtonDeletePlayer";
             ButtonDeletePlayer.Size = new Size(111, 29);
             ButtonDeletePlayer.TabIndex = 15;
