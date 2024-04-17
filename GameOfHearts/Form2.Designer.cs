@@ -170,29 +170,29 @@
             // playerName4
             // 
             playerName4.AutoSize = true;
-            playerName4.Location = new Point(49, 429);
+            playerName4.Location = new Point(27, 425);
             playerName4.Name = "playerName4";
-            playerName4.Size = new Size(89, 28);
+            playerName4.Size = new Size(115, 28);
             playerName4.TabIndex = 7;
-            playerName4.Text = "Player 4";
+            playerName4.Text = "AI player 3";
             // 
             // playerName3
             // 
             playerName3.AutoSize = true;
-            playerName3.Location = new Point(49, 301);
+            playerName3.Location = new Point(23, 298);
             playerName3.Name = "playerName3";
-            playerName3.Size = new Size(89, 28);
+            playerName3.Size = new Size(115, 28);
             playerName3.TabIndex = 6;
-            playerName3.Text = "Player 3";
+            playerName3.Text = "AI player 2";
             // 
             // playerName2
             // 
             playerName2.AutoSize = true;
-            playerName2.Location = new Point(49, 173);
+            playerName2.Location = new Point(28, 167);
             playerName2.Name = "playerName2";
-            playerName2.Size = new Size(89, 28);
+            playerName2.Size = new Size(115, 28);
             playerName2.TabIndex = 5;
-            playerName2.Text = "Player 2";
+            playerName2.Text = "AI player 1";
             // 
             // playerName1
             // 
@@ -261,7 +261,6 @@
             ClientSize = new Size(1760, 1055);
             Controls.Add(gbMain);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MinimizeBox = false;
             Name = "Form2";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "GameOfHearts";

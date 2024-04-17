@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GameOfHearts
@@ -10,27 +11,44 @@ namespace GameOfHearts
         private Form1 f1;
         private Button[] buttons;
         private Dictionary<Button, Card> buttonCardMap;
-        private const int CardsPerRow = 13; // Number of cards to display in each row
+        // Number of cards to display in each row
+        private const int CardsPerRow = 13; 
+        // Set button attributes 
         private const int ButtonWidth = 80;
         private const int ButtonHeight = 120;
         private const int SpacingX = 5;
         private const int SpacingY = 5;
-        private const int StartX = 272; // X position to start displaying buttons
-        private const int StartY = 306; // Y position to start displaying buttons
+        // X position to start displaying buttons
+        private const int StartX = 272;
+        // Y position to start displaying buttons
+        private const int StartY = 306; 
 
-        public Form2(Form1 parentForm, Player player1, Player player2, Player player3, Player player4)
+        // Define players
+        private Player[] players;
+
+        // Keep track of current player index
+        private int currentPlayerIndex;
+
+        // Keep track of cards played in the current trick
+        private List<Card> currentTrick;
+
+        // Keep track of which player started the trick
+        private int trickStarter;
+
+        public Form2(Form1 parentForm, Player humanPlayer, Player[] aiPlayers)
         {
             InitializeComponent();
             f1 = parentForm;
 
-            // Now you can access all player objects if needed
-            // For demonstration purpose, let's just display the name of player1
-            playerName1.Text = player1.Name;
-            playerName2.Text = player2.Name;
-            playerName3.Text = player3.Name;
-            playerName4.Text = player4.Name;
-
+            // Hide main form
             f1.Hide();
+
+            // Initialize players array
+            players = new Player[4];
+            players[0] = humanPlayer;
+            Array.Copy(aiPlayers, 0, players, 1, 3);
+
+            playerName1.Text = humanPlayer.Name;
 
             // Initialize buttons array with appropriate size
             buttons = new Button[52];
@@ -40,11 +58,7 @@ namespace GameOfHearts
             int col = 0;
 
             // Create a shuffled list of card indices
-            var cardIndices = new int[52];
-            for (int i = 0; i < cardIndices.Length; i++)
-            {
-                cardIndices[i] = i;
-            }
+            var cardIndices = Enumerable.Range(0, 52).ToArray();
             Shuffle(cardIndices);
 
             // Loop through each card index
@@ -72,7 +86,6 @@ namespace GameOfHearts
                 buttons[index].ImageAlign = ContentAlignment.MiddleCenter;
                 buttons[index].Enabled = true;
 
-
                 // Assign name to the button based on the card's suit and rank
                 buttons[index].Name = $"Button{rank}_of_{suit}";
 
@@ -91,34 +104,318 @@ namespace GameOfHearts
                 }
             }
 
-            // Assign a single event handler for all buttons
-            foreach (var button in buttons)
+            // Assign event handler for all buttons
+            for (int i = 0; i < buttons.Length; i++)
             {
-                button.Click += Button_Click;
-                Console.WriteLine($"Event handler attached to button {button.Name}");
+                buttons[i].Click += Button_Click;
             }
 
-        }
 
+            // Start the game with the human player
+            currentPlayerIndex = 0;
+            trickStarter = 0;
+            currentTrick = new List<Card>();
+            MessageBox.Show($"It's {players[currentPlayerIndex].Name}'s turn.");
+            // Check if the current player is an AI player
+            if (currentPlayerIndex != 0)
+            {
+                // AI player's turn
+                PlayAI();
+            }
+        }
 
         private void Button_Click(object? sender, EventArgs e)
         {
-            // Check if sender is a Button and not null before accessing it
-            if (sender is Button clickedButton)
+            // Check if it's the human player's turn
+            if (currentPlayerIndex == 0)
             {
-                // Get the card associated with the clicked button
-                if (buttonCardMap.TryGetValue(clickedButton, out Card? clickedCard))
+                // Check if sender is a Button and not empty before accessing it
+                if (sender is Button clickedButton)
                 {
-                    // Handle button click event here, for example, display the card info
-                    MessageBox.Show($"Clicked: {clickedCard.Rank} of {clickedCard.Suit}");
+                    // Get the card associated with the clicked button
+                    if (buttonCardMap.TryGetValue(clickedButton, out Card? clickedCard))
+                    {
+                        // Check if the move is valid
+                        if (IsValidMove(players[0], clickedCard))
+                        {
+                            // Remove the card from the human player's hand
+                            players[0].Hand.Remove(clickedCard);
 
-                    Console.WriteLine($"Clicked: {clickedCard.Rank} of {clickedCard.Suit}");
+                            // Add the card to the current trick
+                            currentTrick.Add(clickedCard);
+
+                            // Remove the button from the UI
+                            clickedButton.Visible = false;
+
+                            // Check if the trick is complete
+                            if (currentTrick.Count == 4)
+                            {
+                                // Process the trick
+                                ProcessTrick();
+
+                                // Check if the round is complete
+                                if (players[0].Hand.Count == 0)
+                                {
+                                    // End the round
+                                    EndRound();
+                                }
+                                else
+                                {
+                                    // Start a new trick
+                                    StartNewTrick();
+                                }
+                            }
+                            else
+                            {
+                                // Move to the next player
+                                currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+                                MessageBox.Show($"It's {players[currentPlayerIndex].Name}'s turn.");
+
+                                // Check if the next player is an AI player
+                                if (currentPlayerIndex != 0)
+                                {
+                                    // AI player's turn
+                                    PlayAI();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // Invalid move, notify the player
+                            MessageBox.Show("Invalid move. You must follow suit if possible and hearts cannot be led until they have been played in a previous trick.");
+                        }
+                    }
                 }
             }
         }
 
+        private void PlayAI()
+        {
+            Player currentPlayer = players[currentPlayerIndex];
+
+            // Implement AI logic to select a valid card to play
+            Card selectedCard = SelectAICard(currentPlayer);
+
+            // Remove the card from the AI player's hand
+            currentPlayer.Hand.Remove(selectedCard);
+
+            // Add the card to the current trick
+            currentTrick.Add(selectedCard);
+
+            // Update the UI to hide the selected card button
+            UpdateUI(selectedCard);
+
+            // Check if the trick is complete
+            if (currentTrick.Count == 4)
+            {
+                // Process the trick
+                ProcessTrick();
+
+                // Check if the round is complete
+                if (currentPlayer.Hand.Count == 0)
+                {
+                    // End the round
+                    EndRound();
+                }
+                else
+                {
+                    // Start a new trick
+                    StartNewTrick();
+                }
+            }
+            else
+            {
+                // Move to the next player
+                currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+                MessageBox.Show($"It's {players[currentPlayerIndex].Name}'s turn.");
+                // Check if the next player is an AI player
+                if (currentPlayerIndex != 0)
+                {
+                    // AI player's turn
+                    PlayAI();
+                }
+            }
+        }
+
+        Random rand = new Random();
+        private Card SelectAICard(Player aiPlayer)
+        {
+           
+            // Filter out non-heart cards
+            List<Card> nonHeartCards = aiPlayer.Hand.Where(card => card.Suit != Suit.hearts).ToList();
+
+            // Added debugging to see if it works : if the Hand is set properly to count the non-hearts cards 
+            MessageBox.Show($"Number of non-heart cards: {nonHeartCards.Count}");
+
+            // Check if there are non-heart cards
+            if (nonHeartCards.Count > 0)
+            {
+                // Select a random non-heart card
+                return nonHeartCards[rand.Next(nonHeartCards.Count)];
+            }
+            else
+            {
+                // If there are no cards other than hearts, select a random card including hearts
+                return aiPlayer.Hand[rand.Next(aiPlayer.Hand.Count)];
+            }
+        }
 
 
+
+        private bool IsValidMove(Player player, Card card)
+        {
+            // Check if the player is following suit
+            if (currentTrick.Count > 0)
+            {
+                Suit leadSuit = currentTrick[0].Suit;
+                if (player.HasSuit(leadSuit) && card.Suit != leadSuit)
+                {
+                    // Player has the lead suit but did not follow it
+                    MessageBox.Show($"Player {player.Name} must follow suit: {leadSuit}");
+                    return false;
+                }
+            }
+
+            // Hearts cannot be led until they have been played in a previous trick
+            if (currentTrick.Count == 0 && card.Suit == Suit.hearts && !player.HasHearts())
+            {
+                MessageBox.Show($"Player {player.Name} cannot lead with hearts.");
+                return false;
+            }
+
+            // Valid move
+            return true;
+        }
+
+
+        private void ProcessTrick()
+        {
+            // Find the winner of the trick
+            int winnerIndex = FindTrickWinner();
+
+            // Add the cards from the trick to the winner's won cards
+            players[winnerIndex].WonCards.AddRange(currentTrick);
+
+            // Clear the current trick
+            currentTrick.Clear();
+
+            // Set the next trick starter
+            trickStarter = winnerIndex;
+        }
+
+        private int FindTrickWinner()
+        {
+            Suit leadSuit = currentTrick[0].Suit;
+            int highestRankIndex = 0;
+            for (int i = 1; i < currentTrick.Count; i++)
+            {
+                if (currentTrick[i].Suit == leadSuit && currentTrick[i].Rank > currentTrick[highestRankIndex].Rank)
+                {
+                    highestRankIndex = i;
+                }
+            }
+            int winnerIndex = (trickStarter + highestRankIndex) % 4;
+            return winnerIndex;
+        }
+
+        private void StartNewTrick()
+        {
+            // Reset current player index to the trick starter
+            currentPlayerIndex = trickStarter;
+            MessageBox.Show($"It's {players[currentPlayerIndex].Name}'s turn.");
+            // Check if the current player is an AI player
+            if (currentPlayerIndex != 0)
+            {
+                // AI player's turn
+                PlayAI();
+            }
+        }
+
+        private void EndRound()
+        {
+            // Calculate scores
+            int[] scores = CalculateScores();
+
+            // Display scores
+            string scoreMessage = "";
+            for (int i = 0; i < 4; i++)
+            {
+                scoreMessage += $"{players[i].Name}: {scores[i]} points\n";
+            }
+            MessageBox.Show(scoreMessage);
+
+            // Check for game end condition
+            if (scores.Any(score => score >= 100))
+            {
+                // End the game
+                EndGame();
+            }
+            else
+            {
+                // Start a new round
+                StartNewRound();
+            }
+        }
+
+        private int[] CalculateScores()
+        {
+            int[] scores = new int[4];
+            for (int i = 0; i < 4; i++)
+            {
+                foreach (var card in players[i].WonCards)
+                {
+                    if (card.Suit == Suit.hearts)
+                    {
+                        scores[i]++;
+                    }
+                    else if (card.Suit == Suit.spades && card.Rank == Rank.queen)
+                    {
+                        scores[i] += 5;
+                    }
+                }
+            }
+            return scores;
+        }
+
+        private void EndGame()
+        {
+            // Determine the winner
+            int[] scores = CalculateScores();
+            int minScore = scores.Min();
+            List<Player> winners = new List<Player>();
+            for (int i = 0; i < 4; i++)
+            {
+                if (scores[i] == minScore)
+                {
+                    winners.Add(players[i]);
+                }
+            }
+
+            // Display winner(s)
+            string winnerMessage = "Winner(s):\n";
+            foreach (var winner in winners)
+            {
+                winnerMessage += $"{winner.Name}\n";
+            }
+            MessageBox.Show(winnerMessage);
+
+            // Close the game
+            this.Close();
+        }
+
+        private void Shuffle<T>(T[] array)
+        {
+            Random rng = new Random();
+            int n = array.Length;
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                T value = array[k];
+                array[k] = array[n];
+                array[n] = value;
+            }
+        }
 
         private Rank GetRank(int index)
         {
@@ -152,20 +449,70 @@ namespace GameOfHearts
                 throw new ArgumentException("Invalid card index");
         }
 
-        private static Random rng = new Random();
 
-        // Fisher-Yates shuffle algorithm
-        private static void Shuffle<T>(T[] array)
+        private void StartNewRound()
         {
-            int n = array.Length;
-            while (n > 1)
+            // Reset players' hands and won cards
+            foreach (var player in players)
             {
-                n--;
-                int k = rng.Next(n + 1);
-                T value = array[k];
-                array[k] = array[n];
-                array[n] = value;
+                player.Hand.Clear();
+                player.WonCards.Clear();
+            }
+
+            // Deal cards
+            DealCards();
+
+            // Start the new round with the player to the left of the dealer
+            currentPlayerIndex = (currentPlayerIndex + 1) % 4;
+            trickStarter = currentPlayerIndex;
+
+            // Inform whose turn it is
+            MessageBox.Show($"It's {players[currentPlayerIndex].Name}'s turn.");
+            // Check if the current player is an AI player
+            if (currentPlayerIndex != 0)
+            {
+                // AI player's turn
+                PlayAI();
             }
         }
+
+        private void DealCards()
+        {
+            // Create a shuffled deck
+            var deck = new List<Card>();
+            for (int i = 0; i < 52; i++)
+            {
+                Suit suit = GetSuit(i);
+                Rank rank = GetRank(i);
+                deck.Add(new Card(suit, rank, $"../images/{rank}_of_{suit}.png"));
+            }
+
+            Shuffle<Card>(deck.ToArray());
+
+
+            // Deal cards to players
+            for (int i = 0; i < 52; i++)
+            {
+                players[i % 4].Hand.Add(deck[i]);
+            }
+        }
+
+
+
+        private void UpdateUI(Card selectedCard)
+        {
+            // Iterate through the buttonCardMap to find the button associated with the selected card
+            foreach (var pair in buttonCardMap)
+            {
+                if (pair.Value == selectedCard)
+                {
+                    // Hide the button associated with the selected card
+                    pair.Key.Visible = false;
+                    // No need to continue iterating once the button is found
+                    break; 
+                }
+            }
+        }
+
     }
 }

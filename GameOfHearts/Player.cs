@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 public class Player
+{
+    public string Name { get; set; }
+    public List<Card> Hand { get; set; }
+    public List<Card> WonCards { get; set; }
+    public int Score { get; set; }
+
+    public Player(string name, int score)
     {
-        private string playerName;
-        private int playerScore;
-
-        // Constructor
-        public Player(string playerName, int playerScore)
-        {
-            this.playerName = playerName;
-            this.playerScore = playerScore;
-        }
-
-        // Getter and Setter for playerName
-        public string Name
-        {
-            get { return playerName; }
-            set { playerName = value; }
-        }
-
-        // Getter and Setter for playerScore
-        public int PlayerScore
-        {
-            get { return playerScore; }
-            set { playerScore = value; }
-        }
+        Name = name;
+        Hand = new List<Card>();
+        WonCards = new List<Card>();
+        Score = score;
     }
+
+    public bool HasSuit(Suit suit)
+    {
+        return Hand.Any(card => card.Suit == suit);
+    }
+
+    public bool HasHearts()
+    {
+        return Hand.Any(card => card.Suit == Suit.hearts);
+    }
+
+
+
+}
 
