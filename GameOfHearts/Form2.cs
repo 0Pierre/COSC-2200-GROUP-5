@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace GameOfHearts
@@ -35,6 +36,13 @@ namespace GameOfHearts
         // Keep track of which player started the trick
         private int trickStarter;
 
+        #region Initialize form
+        /// <summary>
+        /// Initialize the form, generate buttons and call the main functions such as DealCards() and PlayAI()
+        /// </summary>
+        /// <param name="parentForm"></param>
+        /// <param name="humanPlayer"></param>
+        /// <param name="aiPlayers"></param>
         public Form2(Form1 parentForm, Player humanPlayer, Player[] aiPlayers)
         {
             InitializeComponent();
@@ -63,16 +71,18 @@ namespace GameOfHearts
             var cardIndices = Enumerable.Range(0, 52).ToArray();
             Shuffle(cardIndices);
 
-            // Loop through each card index
             foreach (int index in cardIndices)
             {
                 // Create a new Card instance for each card
                 Suit suit = GetSuit(index);
                 Rank rank = GetRank(index);
-                string imagePath = $"../images/{rank}_of_{suit}.png"; // Assuming images are stored locally
+                string imagePath = $"../images/{rank}_of_{suit}.png";
                 Card card = new Card(suit, rank, imagePath);
 
                 // Add the card to each player's hand
+                 players[index % 4].AddCardToHand(card);
+
+
 
                 // Create Button for each card
                 buttons[index] = new Button();
@@ -128,7 +138,14 @@ namespace GameOfHearts
                 PlayAI();
             }
         }
+        #endregion
 
+        #region Button Event handler ( Cards )
+        /// <summary>
+        ///  Event handler for when a button (card) is clicked 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object? sender, EventArgs e)
         {
             // Check if it's the human player's turn
@@ -146,13 +163,16 @@ namespace GameOfHearts
                             // Remove the card from the human player's hand
                             players[0].Hand.Remove(clickedCard);
 
-                            // Add the card to the current trick
-                            currentTrick.Add(clickedCard);
-
                             // Remove the button from the UI
                             clickedButton.Visible = false;
 
-                            // Check if the trick is complete
+                            // Move the card to the side
+                            MoveCardToSide(clickedCard);
+
+                            // Add the card to the current trick
+                            currentTrick.Add(clickedCard);
+
+                            // Check if the trick is complete (if current trick list has 4 cards)
                             if (currentTrick.Count == 4)
                             {
                                 // Process the trick
@@ -187,13 +207,19 @@ namespace GameOfHearts
                         else
                         {
                             // Invalid move, notify the player
-                            MessageBox.Show("Invalid move. You must follow suit if possible and hearts cannot be led until they have been played in a previous trick.");
+                            MessageBox.Show("Invalid Move.");
                         }
                     }
                 }
             }
         }
+        #endregion
 
+        #region Handles the logic for when an AI player is playing
+
+        /// <summary>
+        /// This is a function to handle AI player logic 
+        /// </summary>
         private void PlayAI()
         {
             Player currentPlayer = players[currentPlayerIndex];
@@ -204,11 +230,38 @@ namespace GameOfHearts
             // Select a card for the AI player to play
             Card selectedCard = SelectAICard(currentPlayer, leadSuit);
 
-            // Add the card to the current trick
-            currentTrick.Add(selectedCard);
+
+            // Remove the selected card from the AI player's hand
+            currentPlayer.Hand.Remove(selectedCard);
+
+
+            Button selectedButton = null;
+            foreach (var pair in buttonCardMap)
+            {
+                if (pair.Value == selectedCard)
+                {
+                    selectedButton = pair.Key;
+                    break; // Stop searching once the matching button is found
+                }
+            }
+
+
+            // Check if a matching button was found
+            if (selectedButton != null)
+            {
+                // Replace the image of the button with the back of the card
+                selectedButton.BackgroundImage = Image.FromFile("../images/back.png");
+
+                // Ensure the background image layout is set to zoom
+                selectedButton.BackgroundImageLayout = ImageLayout.Zoom;
+
+                // Add the card to the current trick
+                currentTrick.Add(selectedCard);
+            }
 
             // Update the UI to hide the selected card button
             UpdateUI(selectedCard, false);
+
 
             // Check if the trick is complete
             if (currentTrick.Count == 4)
@@ -242,12 +295,36 @@ namespace GameOfHearts
             }
         }
 
+        #endregion
+
+        #region Logic for AI players to select cards from the deck
+        /// <summary>
+        /// Method to check for valid cards to play for the AI player
+        /// </summary>
+        /// <param name="aiPlayer"></param>
+        /// <param name="leadSuit"></param>
+        /// <returns></returns>
+        /// 
         Random rand = new Random();
         private Card SelectAICard(Player aiPlayer, Suit leadSuit)
         {
-            // Filter out cards that don't follow the lead suit
-            List<Card> validCards = aiPlayer.Hand.Where(card => card.Suit == leadSuit || card.Suit == Suit.hearts).ToList();
 
+            // Filter out cards that follow the lead suit
+            List<Card> validCards = aiPlayer.Hand.Where(card => card.Suit == leadSuit).ToList();
+
+            // If there are no cards of the lead suit, filter out hearts cards unless hearts have been broken
+            if (validCards.Count == 0 && currentTrick.All(card => card.Suit != Suit.hearts))
+            {
+                validCards = aiPlayer.Hand.Where(card => card.Suit != Suit.hearts).ToList();
+            }
+
+            // Check if there are valid cards to play
+            if (validCards.Count > 0)
+            {
+
+                // Filter out cards that don't follow the lead suit
+                validCards= aiPlayer.Hand.Where(card => card.Suit == leadSuit || card.Suit == Suit.hearts).ToList();
+            }
             // Check if there are valid cards to play
             if (validCards.Count > 0)
             {
@@ -261,17 +338,27 @@ namespace GameOfHearts
             }
         }
 
+        #endregion
 
-
+        #region Logic to see if the human player is following a valid move
+        /// <summary>
+        /// Logic to check the non-AI player is choosing a valid move
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="card"></param>
+        /// <returns></returns>
         private bool IsValidMove(Player player, Card card)
         {
             // Check if the player is following suit
             if (currentTrick.Count > 0)
             {
+                // Determine the lead suit of the current trick
                 Suit leadSuit = currentTrick[0].Suit;
+
+                // Check to see if the player has the lead suit but did not follow it
                 if (player.HasSuit(leadSuit) && card.Suit != leadSuit)
                 {
-                    // Player has the lead suit but did not follow it
+                    // Let the player know about the requirement to follow suit
                     MessageBox.Show($"Player {player.Name} must follow suit: {leadSuit}");
                     return false;
                 }
@@ -280,15 +367,21 @@ namespace GameOfHearts
             // Hearts cannot be led until they have been played in a previous trick
             if (currentTrick.Count == 0 && card.Suit == Suit.hearts && !player.HasHearts())
             {
-                MessageBox.Show($"Player {player.Name} cannot lead with hearts.");
+                // Let the the player know about the rule regarding leading hearts
+                MessageBox.Show($"Invalid move. You must follow suit if possible and hearts cannot be led until they have been played in a previous trick.");
                 return false;
             }
 
-            // Valid move
+            // If none of the above conditions are met, the move is valid
             return true;
         }
+        #endregion
 
-
+        #region Logic to process each trick (round)
+        /// <summary>
+        /// A method which finds the player who won the trick, adds the cards won to the list of won cards , sets the player 
+        /// that starts the next round
+        /// </summary>
         private void ProcessTrick()
         {
             // Find the winner of the trick
@@ -303,28 +396,49 @@ namespace GameOfHearts
             // Set the next trick starter
             trickStarter = winnerIndex;
 
-            // Move picked cards to the side for each player
-            foreach (var player in players)
-            {
-                MovePickedCardsToSide(player);
-            }
+ 
+            
         }
+        #endregion
 
+
+        #region Logic to get the trick winner 
+        /// <summary>
+        /// Finds the winner of the current trick based on the lead suit and card ranks
+        /// </summary>
+        /// <returns></returns>
         private int FindTrickWinner()
         {
+            // Get the lead suit of the current trick
             Suit leadSuit = currentTrick[0].Suit;
+
+            // Initialize the index of the card with the highest rank to the first card in the trick
             int highestRankIndex = 0;
+
+            // Loop through the rest of the cards in the trick
             for (int i = 1; i < currentTrick.Count; i++)
             {
+                // Check if the current card has the lead suit and a higher rank than the card with the highest rank so far
                 if (currentTrick[i].Suit == leadSuit && currentTrick[i].Rank > currentTrick[highestRankIndex].Rank)
                 {
+                    // Update the index of the card with the highest rank
                     highestRankIndex = i;
                 }
             }
+
+            // Calculate the indeex of the winnmer based on the index of the player who started the trick and the index of the card with the highest rank
             int winnerIndex = (trickStarter + highestRankIndex) % 4;
+
+            // Display a message indicating the winner of the trick
+            MessageBox.Show($"Player {players[winnerIndex].Name} won the trick!");
+
+            // Return the winnder Index
             return winnerIndex;
         }
+        #endregion
 
+
+        #region Logic to start a new trick
         private void StartNewTrick()
         {
             // Reset current player index to the trick starter
@@ -337,7 +451,12 @@ namespace GameOfHearts
                 PlayAI();
             }
         }
+        #endregion
 
+        #region Logic to end round or trick
+        /// <summary>
+        /// Ends a round, by calculated score
+        /// </summary>
         private void EndRound()
         {
             // Calculate scores
@@ -351,8 +470,8 @@ namespace GameOfHearts
             }
             MessageBox.Show(scoreMessage);
 
-            // Check for game end condition
-            if (scores.Any(score => score >= 100))
+            // Check for game end condition (i forgot to add the form 1's score here)
+            if (scores.Any(score => score >= 15))
             {
                 // End the game
                 EndGame();
@@ -363,18 +482,29 @@ namespace GameOfHearts
                 StartNewRound();
             }
         }
+        #endregion
 
+        #region Method to calculate scores 
+        /// <summary>
+        /// Calculates the scores for each player for the cards they have won
+        /// </summary>
+        /// <returns> scores </returns>
         private int[] CalculateScores()
         {
+            // Initialize an array to store the scores for each player
             int[] scores = new int[4];
+            // Loop trhough each player 
             for (int i = 0; i < 4; i++)
             {
+                // Loop through each card collected by the current player
                 foreach (var card in players[i].WonCards)
                 {
+                    // If the suit is hearts add 1 to the score
                     if (card.Suit == Suit.hearts)
                     {
                         scores[i]++;
                     }
+                    // If the suit is spades and rand is queen add 5 to the score 
                     else if (card.Suit == Suit.spades && card.Rank == Rank.queen)
                     {
                         scores[i] += 5;
@@ -383,7 +513,10 @@ namespace GameOfHearts
             }
             return scores;
         }
+        #endregion
 
+
+        #region Logic to end the game 
         private void EndGame()
         {
             // Determine the winner
@@ -398,7 +531,7 @@ namespace GameOfHearts
                 }
             }
 
-            // Display winner(s)
+            // Display winner
             string winnerMessage = "Winner(s):\n";
             foreach (var winner in winners)
             {
@@ -409,7 +542,14 @@ namespace GameOfHearts
             // Close the game
             this.Close();
         }
+        #endregion
 
+        #region Logic to shuffle the cards 
+        /// <summary>
+        /// Method to shuffle : referenced https://stackoverflow.com/questions/69503717/how-to-use-random-class-to-shuffle-array-in-c-sharp
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array"></param>
         private void Shuffle<T>(T[] array)
         {
             Random rng = new Random();
@@ -424,6 +564,13 @@ namespace GameOfHearts
             }
         }
 
+        #endregion
+
+        /// <summary>
+        /// Get the Rank of a card
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
         private Rank GetRank(int index)
         {
             int rankValue = index % 13 + 2;
@@ -442,6 +589,12 @@ namespace GameOfHearts
             }
         }
 
+        /// <summary>
+        /// Get the Suit of a card 
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         private Suit GetSuit(int index)
         {
             if (index >= 0 && index <= 12)
@@ -456,7 +609,10 @@ namespace GameOfHearts
                 throw new ArgumentException("Invalid card index");
         }
 
-
+        #region Logic to start a new round 
+        /// <summary>
+        /// Method to start a new round 
+        /// </summary>
         private void StartNewRound()
         {
             // Reset players' hands and won cards
@@ -482,7 +638,9 @@ namespace GameOfHearts
                 PlayAI();
             }
         }
+        #endregion
 
+        #region Logic to Deal Cards 
         private void DealCards()
         {
             // Create a shuffled deck
@@ -503,53 +661,45 @@ namespace GameOfHearts
                 players[i % 4].AddCardToHand(deck[i]);
             }
         }
+        #endregion
 
+
+        #region Logic to Move cards to the side when played 
+        private void MoveCardToSide(Card card)
+        {
+            // Create a new button to represent the played card on the side
+            Button playedCardButton = new Button();
+            playedCardButton.Location = new Point(1660, 439);
+
+        }
 
         private void UpdateUI(Card selectedCard, bool isHumanPlayer)
         {
-            // Iterate through the buttonCardMap to find the button associated with the selected card
+            // Loop through the buttonCardMap to find the button with the selected card
             foreach (var pair in buttonCardMap)
             {
                 if (pair.Value == selectedCard)
                 {
-                    // Hide the button associated with the selected card
+                    // Hide the button with the selected card
                     pair.Key.Visible = false;
-
+ 
                     // Move the selected card to the side
                     if (isHumanPlayer)
                     {
-                        pair.Key.Location = new Point(1550, 328); // Human player's cards
+                        pair.Key.Location = new Point(1550, 328);
                     }
                     else
                     {
-                        pair.Key.Location = new Point(50, 50); // AI player's cards (adjust the position as needed)
+                        pair.Key.Location = new Point(50, 50); 
                     }
-
-                    // No need to continue iterating once the button is found
+ 
+                    // break loop ince button is found
                     break;
                 }
             }
         }
+        #endregion
 
-        private void MovePickedCardsToSide(Player player)
-        {
-            int offset = 0;
-            foreach (var card in player.WonCards)
-            {
-                Button button = new Button();
-                button.Size = new Size(ButtonWidth, ButtonHeight);
-                button.Location = new Point(1550 + offset, 328); // Adjust the position as needed
-                button.BackgroundImage = card.GetCardImage();
-                button.BackgroundImageLayout = ImageLayout.Zoom;
-                button.Text = "";
-                button.FlatStyle = FlatStyle.Flat;
-                button.FlatAppearance.BorderSize = 0;
-                button.ImageAlign = ContentAlignment.MiddleCenter;
-                button.Enabled = false;
-                this.Controls.Add(button);
-                offset += ButtonWidth + SpacingX;
-            }
-        }
 
     }
 }

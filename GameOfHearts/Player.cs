@@ -36,7 +36,10 @@ public class Player
 
     }
 
-    // Method to add a card to the player's hand
+    /// <summary>
+    /// Method to add a card to the player's hand
+    /// </summary>
+    /// <param name="card"></param>
 
     public void AddCardToHand(Card card)
 
@@ -46,7 +49,10 @@ public class Player
 
     }
 
-    // Method to remove a card from the player's hand
+    /// <summary>
+    /// Method to remove a card from the player's hand
+    /// </summary>
+    /// <param name="card"></param>
 
     public void RemoveCardFromHand(Card card)
 
@@ -56,7 +62,9 @@ public class Player
 
     }
 
-    // Method to clear the player's hand
+    /// <summary>
+    /// Method to clear the player's hand
+    /// </summary>
 
     public void ClearHand()
 
@@ -66,7 +74,10 @@ public class Player
 
     }
 
-    // Method to add won cards to the player's collection
+    /// <summary>
+    /// Method to add won cards to the player's collection
+    /// </summary>
+    /// <param name="cards"></param>
 
     public void AddWonCards(IEnumerable<Card> cards)
 
@@ -76,7 +87,9 @@ public class Player
 
     }
 
-    // Method to clear won cards from the player's collection
+    /// <summary>
+    /// Method to clear won cards from the player's collection
+    /// </summary>
 
     public void ClearWonCards()
 
@@ -86,7 +99,11 @@ public class Player
 
     }
 
-    // Method to check if the player has cards of a specific suit
+    /// <summary>
+    /// Method to check if the player has cards of a specific suit
+    /// </summary>
+    /// <param name="suit"></param>
+    /// <returns></returns>
 
     public bool HasSuit(Suit suit)
 
@@ -96,7 +113,10 @@ public class Player
 
     }
 
-    // Method to check if the player has hearts
+    /// <summary>
+    /// Method to check if the player has hearts
+    /// </summary>
+    /// <returns></returns>
 
     public bool HasHearts()
 
