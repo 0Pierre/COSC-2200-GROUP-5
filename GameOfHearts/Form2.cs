@@ -12,7 +12,7 @@ namespace GameOfHearts
         private Button[] buttons;
         private Dictionary<Button, Card> buttonCardMap;
         // Number of cards to display in each row
-        private const int CardsPerRow = 13; 
+        private const int CardsPerRow = 13;
         // Set button attributes 
         private const int ButtonWidth = 80;
         private const int ButtonHeight = 120;
@@ -21,7 +21,7 @@ namespace GameOfHearts
         // X position to start displaying buttons
         private const int StartX = 272;
         // Y position to start displaying buttons
-        private const int StartY = 306; 
+        private const int StartY = 306;
 
         // Define players
         private Player[] players;
@@ -70,6 +70,8 @@ namespace GameOfHearts
                 string imagePath = $"../images/{rank}_of_{suit}.png"; // Assuming images are stored locally
                 Card card = new Card(suit, rank, imagePath);
 
+                // Add the card to each player's hand
+                
                 // Create Button for each card
                 buttons[index] = new Button();
 
@@ -193,11 +195,11 @@ namespace GameOfHearts
         {
             Player currentPlayer = players[currentPlayerIndex];
 
-            // Implement AI logic to select a valid card to play
-            Card selectedCard = SelectAICard(currentPlayer);
+            // Determine the lead suit of the current trick
+            Suit leadSuit = currentTrick.Count > 0 ? currentTrick[0].Suit : Suit.hearts;
 
-            // Remove the card from the AI player's hand
-            currentPlayer.Hand.Remove(selectedCard);
+            // Select a card for the AI player to play
+            Card selectedCard = SelectAICard(currentPlayer, leadSuit);
 
             // Add the card to the current trick
             currentTrick.Add(selectedCard);
@@ -238,27 +240,24 @@ namespace GameOfHearts
         }
 
         Random rand = new Random();
-        private Card SelectAICard(Player aiPlayer)
+        private Card SelectAICard(Player aiPlayer, Suit leadSuit)
         {
-           
-            // Filter out non-heart cards
-            List<Card> nonHeartCards = aiPlayer.Hand.Where(card => card.Suit != Suit.hearts).ToList();
+            // Filter out cards that don't follow the lead suit
+            List<Card> validCards = aiPlayer.Hand.Where(card => card.Suit == leadSuit || card.Suit == Suit.hearts).ToList();
 
-            // Added debugging to see if it works : if the Hand is set properly to count the non-hearts cards 
-            MessageBox.Show($"Number of non-heart cards: {nonHeartCards.Count}");
-
-            // Check if there are non-heart cards
-            if (nonHeartCards.Count > 0)
+            // Check if there are valid cards to play
+            if (validCards.Count > 0)
             {
-                // Select a random non-heart card
-                return nonHeartCards[rand.Next(nonHeartCards.Count)];
+                // Select a random valid card
+                return validCards[rand.Next(validCards.Count)];
             }
             else
             {
-                // If there are no cards other than hearts, select a random card including hearts
+                // If there are no valid cards to play, select a random card from the AI player's hand
                 return aiPlayer.Hand[rand.Next(aiPlayer.Hand.Count)];
             }
         }
+
 
 
 
@@ -507,9 +506,9 @@ namespace GameOfHearts
                 if (pair.Value == selectedCard)
                 {
                     // Hide the button associated with the selected card
-                    pair.Key.Visible = false;
+                    pair.Key.Location = new Point(1550, 328);
                     // No need to continue iterating once the button is found
-                    break; 
+                    break;
                 }
             }
         }

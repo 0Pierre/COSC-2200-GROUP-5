@@ -20,6 +20,11 @@ public class Player
         Score = score;
     }
 
+    public void AddCardToHand(Card card)
+    {
+        Hand.Add(card);
+    }
+
     public bool HasSuit(Suit suit)
     {
         return Hand.Any(card => card.Suit == suit);
@@ -29,8 +34,4 @@ public class Player
     {
         return Hand.Any(card => card.Suit == Suit.hearts);
     }
-
-
-
 }
-

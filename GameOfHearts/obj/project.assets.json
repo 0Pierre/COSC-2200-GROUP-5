@@ -8,23 +8,23 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\malsi\\.nuget\\packages\\": {},
+    "C:\\Users\\Moham\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\malsi\\OneDrive\\Desktop\\FinalProjectCOSC\\COSC-2200-GROUP-5\\GameOfHearts\\GameOfHearts.csproj",
+      "projectUniqueName": "C:\\Users\\Moham\\OneDrive\\Desktop\\OOP3\\COSC-2200-GROUP-5\\GameOfHearts\\GameOfHearts.csproj",
       "projectName": "GameOfHearts",
-      "projectPath": "C:\\Users\\malsi\\OneDrive\\Desktop\\FinalProjectCOSC\\COSC-2200-GROUP-5\\GameOfHearts\\GameOfHearts.csproj",
-      "packagesPath": "C:\\Users\\malsi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\malsi\\OneDrive\\Desktop\\FinalProjectCOSC\\COSC-2200-GROUP-5\\GameOfHearts\\obj\\",
+      "projectPath": "C:\\Users\\Moham\\OneDrive\\Desktop\\OOP3\\COSC-2200-GROUP-5\\GameOfHearts\\GameOfHearts.csproj",
+      "packagesPath": "C:\\Users\\Moham\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Moham\\OneDrive\\Desktop\\OOP3\\COSC-2200-GROUP-5\\GameOfHearts\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\malsi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Moham\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
